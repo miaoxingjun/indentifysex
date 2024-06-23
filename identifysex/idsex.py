@@ -1,7 +1,8 @@
 import face_recognition,requests,torch
 from io import BytesIO
-from linearmodel import FastText
-from config import Config
+from .linearmodel import FastText
+from .config import Config
+import os
 
 model = None
 
