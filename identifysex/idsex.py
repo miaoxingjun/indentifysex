@@ -8,7 +8,9 @@ model = None
 def load_model():
     global model
     model = FastText(config=Config())
-    param = torch.load(r'ptfiles/linearsex.pt',map_location=torch.device('cpu'))
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    pt_path = os.path.join(script_dir, './ptfiles/linearsex.pt')
+    param = torch.load(pt_path, map_location=torch.device('cpu'))
     model.load_state_dict(param)
     model.eval()
 
