@@ -3,6 +3,7 @@ from io import BytesIO
 from .linearmodel import FastText
 from .config import Config
 import os
+import torch.nn.functional as F
 
 model = None
 
@@ -34,8 +35,8 @@ def identifysex(url):
     if fe != []:
         fe = [fe[0].tolist()]
         fe = torch.tensor([fe])
-        res = model(fe)
-        result = torch.max(res.data,1).indices.numpy()[0]
+        res = F.softmax(model(fe),dim=1)
+        result = torch.max(res.data,1).indices.numpy()[0]  # 女为[1,0],男为[0,1]
         return result
     else:
         return 'no face in picture'
